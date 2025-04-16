@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, 
   BookOpen, 
@@ -39,9 +39,25 @@ const NavItem = ({ icon: Icon, label, href, active }: NavItemProps) => {
   );
 };
 
+type RouteId = 'home' | 'notebooks' | 'accounts' | 'training' | 'ai' | 'resources' | 'logs' | 'config';
+
 const Sidebar = () => {
-  // In a real app, you'd determine the active route
-  const activeRoute = "home";
+  const location = useLocation();
+  
+  // Determine active route based on the current path
+  const getActiveRoute = (): RouteId => {
+    const path = location.pathname;
+    if (path === '/notebooks') return 'notebooks';
+    if (path === '/accounts') return 'accounts';
+    if (path === '/training') return 'training';
+    if (path === '/ai') return 'ai';
+    if (path === '/resources') return 'resources';
+    if (path === '/logs') return 'logs';
+    if (path === '/config') return 'config';
+    return 'home'; // Default to home for '/' or any other path
+  };
+  
+  const activeRoute: RouteId = getActiveRoute();
 
   return (
     <div className="h-screen w-64 border-r border-border bg-card fixed left-0 top-0 flex flex-col">
