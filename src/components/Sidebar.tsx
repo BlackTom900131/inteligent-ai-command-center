@@ -1,16 +1,16 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
-  Home, 
-  BookOpen, 
-  Globe, 
-  Brain, 
-  Bot, 
-  Cpu, 
-  AlertCircle, 
+import {
+  Home,
+  BookOpen,
+  Globe,
+  Brain,
+  Bot,
+  Cpu,
+  AlertCircle,
   Settings,
-  Plus
+  Plus,
+  DollarSign
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -39,11 +39,11 @@ const NavItem = ({ icon: Icon, label, href, active }: NavItemProps) => {
   );
 };
 
-type RouteId = 'home' | 'notebooks' | 'accounts' | 'training' | 'ai' | 'resources' | 'logs' | 'config';
+type RouteId = 'home' | 'notebooks' | 'accounts' | 'training' | 'ai' | 'resources' | 'logs' | 'config' | 'price';
 
 const Sidebar = () => {
   const location = useLocation();
-  
+
   // Determine active route based on the current path
   const getActiveRoute = (): RouteId => {
     const path = location.pathname;
@@ -54,9 +54,10 @@ const Sidebar = () => {
     if (path === '/resources') return 'resources';
     if (path === '/logs') return 'logs';
     if (path === '/config') return 'config';
+    if (path === '/price') return 'price';
     return 'home'; // Default to home for '/' or any other path
   };
-  
+
   const activeRoute: RouteId = getActiveRoute();
 
   return (
@@ -67,16 +68,16 @@ const Sidebar = () => {
         </div>
         <h1 className="font-semibold text-lg">AI Command Center</h1>
       </div>
-      
+
       <div className="p-4">
-        <Button 
+        <Button
           className="w-full justify-start gap-2 bg-primary/90 hover:bg-primary text-primary-foreground"
         >
           <Plus size={18} />
           <span>Create New</span>
         </Button>
       </div>
-      
+
       <nav className="flex-1 p-2 space-y-1 overflow-y-auto scrollbar-hide">
         <NavItem icon={Home} label="Home/Summary" href="/" active={activeRoute === "home"} />
         <NavItem icon={BookOpen} label="Active Notebooks" href="/notebooks" active={activeRoute === "notebooks"} />
@@ -85,9 +86,10 @@ const Sidebar = () => {
         <NavItem icon={Bot} label="Personalized AI" href="/ai" active={activeRoute === "ai"} />
         <NavItem icon={Cpu} label="Resource Management" href="/resources" active={activeRoute === "resources"} />
         <NavItem icon={AlertCircle} label="Logs and Alerts" href="/logs" active={activeRoute === "logs"} />
+        <NavItem icon={DollarSign} label="Price" href="/price" active={activeRoute === "price"} />
         <NavItem icon={Settings} label="Configuration" href="/config" active={activeRoute === "config"} />
       </nav>
-      
+
       <div className="p-4 mt-auto border-t border-border">
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-full bg-secondary/20 flex items-center justify-center">
